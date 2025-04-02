@@ -90,3 +90,6 @@ y? (for example, for: x = 3 s, i y = 2 = ⇒ 0)
 #### Implementation
 
 Since all submatrices, except for the one in the bottom right, retain their terms, we are interested in how many times the element appears in these submatrices to invert its value. When we reach W_2 with the element still in the bottom right, the value is 1, and recursively it alternates back to 0. Every time the element is in another submatrix, it retains the value it had before, which is the value from the minimal unchanged matrix.
+
+- Time complexity: O(log(N))
+- Space complexity: O(K)
