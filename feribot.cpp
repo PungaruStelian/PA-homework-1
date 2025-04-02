@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "/mnt/c/Users/punga/Desktop/FACULTATE/PA/teme/PA-homework-1/feribot.h"
+#include "./feribot.h"
 
 std::ifstream fin("feribot.in");
 std::ofstream fout("feribot.out");
