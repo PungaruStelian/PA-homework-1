@@ -15,32 +15,38 @@ K ferrys must transport a series of cars(N) across a river. The ferry has a maxi
 The goal is to determine the minimum possible value for the ferry's weight capacity that allows all cars to be transported, while respecting the order constraint.
 
 #### Input
+
 - In feribot.in
 - On the first line: two integers N and K representing the number of cars and the maximum number of trips the ferry can make.
 - On the second line: N integers representing the weights of each car.
 
 #### Output
+
 - In feribot.out
 - A single integer representing the minimum weight capacity of the ferry needed to transport all cars.
 
 #### Restrictions
+
 - (1 ≤ K ≤ N ≤ 10^5)
 - (1 ≤ Gᵢ ≤ 10^12)
 
 #### Testing
+
 - The source that account, holds the function, must be called ̆A: feribot.c, feribot.cpp or feribot.java.
 
 #### Example
+
 | ferry.in       | ferry.out | Explanation |
 |----------------|-----------|-------------|
 | 10 5 <br> 3 4 2 1 6 7 1 2 2 3 | 8        | On the first ferry, the first two cars enter (3+4=7).<br>On the second one, the next two (2+1=3).<br>On the third, the next car (6).<br>On the fourth, the next two (7+1=8).<br>On the last ferry, the last three cars (2+2+3=7). |
 
 #### Implementation
+
 We do the binary search on the possible range for the maximum weight of a ferry: [the maximum vector element, the sum of the elements in the vector] => [max (G), sum (G)].
 At every step, we check if we can put in every k feribot the maximum chosen weight. We half the interval and f we found a solution we go in the lower half, otherwise to the upper one.
 We keep the last solution found being the smallest.
 
-- Time complexity: O(N log sum(G))
+- Time complexity: O(N * log(sum(G)))
 - Space complexity: O(N)
 
 ### Walsh
@@ -63,12 +69,14 @@ With this table, Gigel asks: For K pairs (X, Y): What value is in the Walsh tabl
 y? (for example, for: x = 3 s, i y = 2 = ⇒ 0)
 
 #### Input
+
 - In walsh.in
 - On the first line: two integers N and K representing the size of the Walsh table and the number of queries.
 - On the next K lines: two integers X and Y representing the coordinates of the Walsh table.
 - The Walsh table is indexed starting from 1.
 
 #### Output
+
 - In walsh.out
 - K lines, each containing the value at the specified coordinates in the Walsh table.
 - The output should be in the same order as the input queries.
@@ -79,6 +87,7 @@ y? (for example, for: x = 3 s, i y = 2 = ⇒ 0)
 - (1 ≤ X, Y ≤ N ≤ 2^30)
 
 #### Testing
+
 - The source that account, holds the function, must be called ̆A: walsh.c, walsh.cpp or walsh.java.
 
 #### Example
@@ -91,5 +100,61 @@ y? (for example, for: x = 3 s, i y = 2 = ⇒ 0)
 
 Since all submatrices, except for the one in the bottom right, retain their terms, we are interested in how many times the element appears in these submatrices to invert its value. When we reach W_2 with the element still in the bottom right, the value is 1, and recursively it alternates back to 0. Every time the element is in another submatrix, it retains the value it had before, which is the value from the minimal unchanged matrix.
 
-- Time complexity: O(log(N))
+- Time complexity: O(K * log(N))
 - Space complexity: O(K)
+
+### BadGPT
+
+#### Description
+
+Gigel decided to use the new tool StatementGPT to generate statements for his assignments at Politehnica. This tool does not necessarily generate interesting statements, but by using a new extension (created by himself) called GPT2PDF, it takes the statement and converts it into a PDF format, making it ready for publication.
+
+Gigel's problem is that his extension does not transform the statement into a PDF by copying the text, but rather by creating an image based on the original text. However, this tool fails to correctly process the letters "m" and "w." The letter "m" will appear in the statement as "nn," while the letter "w" will appear as "uu" (since StatementGPT prefers English). For example, if the sequence "anna" appears in the PDF statement, then the original sequence could have been either "anna" or "ama."
+
+Gigel is curious to find out whether his extension is reliable or not. He wants to determine how many distinct strings could have originally formed the statement based on the character sequence in the PDF. Afraid of a potentially large number of possibilities, the result will be displayed modulo 10^9 + 7 (this way, the result might be 1, and Gigel will be satisfied).
+
+#### Input
+
+The input file badgpt.in will contain a single line with a compressed character string in the form l1n1l2n2 ..., where the sequence l_i n_i indicates that the letter l_i appears n_i times in a row.
+It is guaranteed that the same letter will not appear in two consecutive positions. For example, we cannot have the encoded string u3u4. This will be represented as u7.
+
+#### Output
+
+The output file badgpt.out will contain a single line with the number of distinct strings that could have originally formed the statement, modulo 10^9 + 7.
+
+#### Restrictions
+
+- 1 ≤ l_i, n_i ≤ 10^18
+- 1 ≤ G ≤ 10^5; where G is the number of compressed groups. A compressed group represents a pair l_i n_i indicating that the letter l_i will appear n_i times in a row.
+
+#### Testing
+
+- The source that account, holds the function, must be called ̆A: badgpt.c, badgpt.cpp or badgpt.java.
+
+#### Example
+
+| badgpt.in       | badgpt.out | Explanation |
+|-----------------|------------|-------------|
+|a1c3n2 | 2 | Codificarea corespunde s,irului acccnn. <br> Exist ̆a 2 s,iruri init,iale posibile: acccnn s,i acccm. |
+
+#### Implementation
+
+We observe that only when we have sequences consisting exclusively of the letters "n" or "u" do we have multiple reconstruction possibilities, as these could originate either from the original "n"/"u" characters or from the transformations "m" → "nn" and "w" → "uu". In contrast, all other characters remain unchanged and contribute exactly one unique possibility to the count.
+
+The essence of the problem is to determine the number of distinct representations of the original sequence, considering that each sequence of "nn" or "uu" could have either come from an identical sequence or from an equivalent "m"/"w". This process leads to a recurrence relation of the form:
+
+- dp[i] = dp[i-1] + dp[i-2]
+
+where:
+
+- dp[i-1] represents the number of ways we can obtain the sequence up to position i-1, assuming the last character is an original "n" or "u".
+
+- dp[i-2] represents the number of ways we can obtain the sequence up to position i-2, assuming the last two characters are "nn" or "uu" and originate from an "m"/"w".
+
+Thus, the solution requires computing the nth Fibonacci number, which can be efficiently achieved in O(log n) using matrix exponentiation.
+
+a = number of occurrences of n or u from input
+b = number that follows after the letter u or n of the input
+
+- Time complexity: O(a * log(b))
+- Space complexity: O(size(input) + log(b))
