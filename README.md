@@ -158,3 +158,43 @@ b = number that follows after the letter u or n of the input
 
 - Time complexity: O(a * log(b))
 - Space complexity: O(size(input) + log(b))
+
+### REGELE (The King)
+
+#### Description
+
+After all the trials he went through during the PA assignments, Gigel became the wisest man and was chosen as the king of the Gigeland kingdom. At this moment, the kingdom is facing a problem that needs immediate resolution.
+The kingdom has a commercial network consisting of N cities placed along a line. City i is located at coordinate coord[i]. A city can trade only with its neighboring cities (the leftmost and rightmost cities have only one neighbor).
+A trade route between two cities is considered active if we can allocate a number of merchants equal to the distance between those two cities. If a route is active, it is active for both cities it connects.
+A city is considered active if both of its trade routes are active. Unfortunately, the kingdom doesn't have enough merchants to handle all the trade routes.
+Since the number of merchants available in the kingdom can increase or decrease each day, Gigel wants to answer Q questions of the form:
+Given M available merchants, what is the maximum number X such that, no matter how we choose X cities, the available merchants can be distributed across the trade routes in such a way that all X cities are commercially active?
+
+#### Input
+
+- On the first line of the file regele.in is N, the number of cities.
+- On the second line are N numbers, representing the coordinates of the cities, separated by spaces, sorted in ascending order.
+- On the third line is Q, the number of queries.
+- On the following Q lines, there is a number M, representing the number of available merchants.
+
+#### Output
+- In the file regele.out, there will be Q lines, each containing a single number representing the maximum X that satisfies the property described in the statement.
+
+#### Restrictions
+- 1 ≤ Q ≤ 5*10^5
+- 1 ≤ N ≤ 2000
+- 1 ≤ coord[i] ≤ 10^9
+
+#### Testing
+- The source that account, holds the function, must be called ̆A: regele.c, regele.cpp or Regele.java.
+
+#### Example
+| regele.in       | regele.out | Explanation |
+|-----------------|------------|-------------|
+| 6 <br> 2 5 10 12 17 19 <br> 3 <br> 15 <br> 10 <br> 20 | 2 <br> 1 <br> 6 | 2 → if X were 3, to activate the cities at positions 5, 12, and 17, 17 merchants are needed. Any combination of 2 cities can be activated using 15 merchants. <br> 1 → any single city can be activated if we have 10 merchants. Simultaneous activation of the cities at coordinates 5 and 17 is not possible with 10 merchants (15 are needed). <br> 6 → to activate all cities, 17 merchants are required.
+
+## Implementation
+We precompute a result vector that stores the maximum total cost (merchant count) required to activate the most expensive combinations of cities for each possible number of selected cities. curr_[k] and prev_[k] are used to recursively compute the maximum cost for selecting k active cities from the first i cities, based on whether or not the i-th city is included. The maximum cost at step i is the greater between the cost including the current city (which means both of its routes must be active), or the cost excluding it (taking the best result from the previous step). In the end, we perform a binary search to find the largest number of cities X such that the cost to activate any X cities is less than or equal to M (available merchants). The number of cities X is the index in the result vector.
+
+- Time complexity: O(N^2 + Q * log(N))
+- Space complexity: O(N + Q)

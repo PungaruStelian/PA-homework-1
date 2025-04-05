@@ -246,7 +246,7 @@ run_problem() {
                     echo "		e.g. sudo apt-get install mpg123"
                     echo "		e.g. ./check"
                 else
-                    mpg123 _utils/.suprise/yoda.mp3 &>/dev/null
+                    mpg123 _utils/.suprise/nu-mi_place.mp3 &>/dev/null
                 fi
             fi
         fi
@@ -357,6 +357,6 @@ if (($(echo "$total == $MAX_POINTS" | bc -l))); then
     echo ""
 
     if [ -z "$ONLINE_JUDGE" ]; then
-        mpg123 _utils/.suprise/champions.mp3 &>/dev/null
+        mpg123 _utils/.suprise/nu-mi_place.mp3 &>/dev/null
     fi
 fi

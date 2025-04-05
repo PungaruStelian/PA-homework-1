@@ -11,16 +11,14 @@ std::ofstream fout("badgpt.out");
 
 void multiply(std::vector<std::vector<long>> &m1,
     std::vector<std::vector<long>> &m2) {
-    std::vector<std::vector<long>> res(2, std::vector<long>(2));
-    res[0][0] = ((m1[0][0] * m2[0][0]) % MOD
-        + (m1[0][1] * m2[1][0]) % MOD) % MOD;
-    res[0][1] = ((m1[0][0] * m2[0][1]) % MOD
-        + (m1[0][1] * m2[1][1]) % MOD) % MOD;
-    res[1][0] = ((m1[1][0] * m2[0][0]) % MOD
-        + (m1[1][1] * m2[1][0]) % MOD) % MOD;
-    res[1][1] = ((m1[1][0] * m2[0][1]) % MOD
-        + (m1[1][1] * m2[1][1]) % MOD) % MOD;
-    m1 = res;
+    long a = ((m1[0][0] * m2[0][0]) % MOD + (m1[0][1] * m2[1][0]) % MOD) % MOD;
+    long b = ((m1[0][0] * m2[0][1]) % MOD + (m1[0][1] * m2[1][1]) % MOD) % MOD;
+    long c = ((m1[1][0] * m2[0][0]) % MOD + (m1[1][1] * m2[1][0]) % MOD) % MOD;
+    long d = ((m1[1][0] * m2[0][1]) % MOD + (m1[1][1] * m2[1][1]) % MOD) % MOD;
+    m1[0][0] = a;
+    m1[0][1] = b;
+    m1[1][0] = c;
+    m1[1][1] = d;
 }
 
 void power(std::vector<std::vector<long>> &m, long n) {

@@ -1,9 +1,10 @@
-./badgpt.cpp:43:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
 Done processing ./badgpt.cpp
 Done processing ./badgpt.h
 Done processing ./feribot.cpp
 Done processing ./feribot.h
+Done processing ./regele.cpp
+Done processing ./regele.h
 Done processing ./walsh.cpp
 Done processing ./walsh.h
 Done processing ./_utils/verif.cpp
-Total errors found: 1
+Total errors found: 0
