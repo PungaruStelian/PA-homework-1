@@ -24,11 +24,12 @@ void multiply(std::vector<std::vector<long>> &m1,
 void power(std::vector<std::vector<long>> &m, long n) {
     if (n == 1)
         return;
-    std::vector<std::vector<long>> i = {{1, 1}, {1, 0}};
     power(m, n / 2);
     multiply(m, m);
-    if (n % 2 != 0)
+    if (n % 2 != 0) {
+        std::vector<std::vector<long>> i = {{1, 1}, {1, 0}};
         multiply(m, i);
+    }
 }
 
 int fib(long n) {
